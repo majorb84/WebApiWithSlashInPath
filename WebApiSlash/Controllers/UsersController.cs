@@ -2,12 +2,14 @@
 
 namespace WebApiSlash.Controllers
 {
+    [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
-        // GET api/<controller>/5
-        public string Get(int id)
+        [HttpGet]
+        [Route("{accountName}")]
+        public string Get(string accountName)
         {
-            return id.ToString();
+            return accountName;
         }
     }
 }
