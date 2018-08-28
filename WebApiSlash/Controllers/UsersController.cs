@@ -6,7 +6,7 @@ namespace WebApiSlash.Controllers
     public class UsersController : ApiController
     {
         [HttpGet]
-        [Route("{accountName}")]
+        [Route("{*accountName}")]
         public string Get(string accountName)
         {
             return accountName;
