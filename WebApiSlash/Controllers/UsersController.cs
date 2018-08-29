@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Text.RegularExpressions;
+using System.Web.Http;
 
 namespace WebApiSlash.Controllers
 {
@@ -6,10 +7,16 @@ namespace WebApiSlash.Controllers
     public class UsersController : ApiController
     {
         [HttpGet]
-        [Route("{*accountName}")]
-        public string Get(string accountName)
+        [Route("{accountName}")]
+        public string Get([FromUri] string accountName)
         {
-            return accountName;
+            return accountName.TrimEnd('/');
+        }
+
+        [Route("{domainName}/{accountName}")]
+        public string Get(string domainName, string accountName)
+        {
+            return Regex.Unescape($"{domainName}\\{accountName}");
         }
     }
 }
