@@ -1,22 +1,25 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 
 namespace WebApiSlash.Controllers
 {
-    [RoutePrefix("api/users")]
+    [RoutePrefix("api")]
     public class UsersController : ApiController
     {
         [HttpGet]
         [Route("{accountName}")]
         public string Get([FromUri] string accountName)
         {
-            return accountName.TrimEnd('/');
+            return Uri.UnescapeDataString(accountName.TrimEnd('/'));
         }
 
-        [Route("{domainName}/{accountName}")]
-        public string Get(string domainName, string accountName)
+        [Route("users/{property}/{id}")]
+        [Route("applications/{id}/{property}")]
+        public string Get(string id, string property)
         {
-            return Regex.Unescape($"{domainName}\\{accountName}");
+            return Uri.UnescapeDataString(id.TrimEnd('/'));
         }
+
     }
 }
